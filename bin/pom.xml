@@ -8,34 +8,8 @@
 	<name>testprokect</name>
 	<description>TP</description>
 
-	<dependencies>
-		<!-- 项目依赖 -->
-		<!-- servlet -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
 
-		<!-- Microsoft Sql server -->
-		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>mssql-jdbc</artifactId>
-			<version>9.2.0.jre8</version>
-		</dependency>
-
-		<!-- mybatis -->
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis</artifactId>
-			<version>3.5.0</version>
-		</dependency>
-
-	</dependencies>
-
-
-	<!-- 属性 -->
+		<!-- 属性 -->
 	<properties>
 		<!--字符编码 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
