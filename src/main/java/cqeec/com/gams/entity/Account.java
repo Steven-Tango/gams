@@ -5,7 +5,7 @@ public class Account {
 	private String name;
 	private String loginName;
 	private String password;
-	private Boolean disable;
+	private Boolean disabled;
 	public String getId() {
 		return id;
 	}
@@ -30,10 +30,10 @@ public class Account {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Boolean getDisable() {
-		return disable;
+	public Boolean getDisabled() {
+		return disabled;
 	}
-	public void setDisable(Boolean disable) {
-		this.disable = disable;
+	public void setDisabled(Boolean disabled) {
+		this.disabled = disabled;
 	}
 }

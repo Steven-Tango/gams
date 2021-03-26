@@ -3,6 +3,9 @@ package cqeec.com.gams.entity;
 public class FunctionalModule {
 	private String id;
 	private String type;//类型（1:功能组2:功能模块）
+	private String parent;//所属功能组标识
+	private String name;//模块代码
+	private String code;//模块代码URl
 	public String getId() {
 		return id;
 	}
@@ -33,7 +36,4 @@ public class FunctionalModule {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	private String parent;//所属功能组标识
-	private String name;//模块代码
-	private String code;//模块代码URl
 }
