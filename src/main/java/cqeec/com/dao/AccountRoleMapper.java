@@ -2,6 +2,8 @@ package cqeec.com.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import cqeec.com.gams.entity.AccountRole;
 
 /*
@@ -12,7 +14,7 @@ public interface AccountRoleMapper {
 		/*
 		 * 统计所有记录数
 		 * */
-		public long cunt();
+		public long count();
 		
 		
 		/*
@@ -32,7 +34,7 @@ public interface AccountRoleMapper {
 		 * 	pageNumber 页码
 		 *  pageSize 每页记录数
 		 * 	 * */
-		public List<AccountRole> findPage(int pageNumber,int pageSize);
+		public List<AccountRole> findPage(@Param("pageNumber")int pageNumber,@Param("pageSize")int pageSize);
 		
 		/*
 		 * 根据账户标识插入账户角色信息

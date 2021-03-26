@@ -2,6 +2,8 @@ package cqeec.com.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import cqeec.com.gams.entity.FunctionalModule;
 
 /*
@@ -13,7 +15,7 @@ public interface FunctionalModuleMapper {
 	/*
 	 * 统计所有记录数
 	 * */
-	public long cunt();
+	public long count();
 	
 	
 	/*
@@ -33,7 +35,7 @@ public interface FunctionalModuleMapper {
 	 * 	pageNumber 页码
 	 *  pageSize 每页记录数
 	 * 	 * */
-	public List<FunctionalModule> findPage(int pageNumber,int pageSize);
+	public List<FunctionalModule> findPage(@Param("pageNumber")int pageNumber,@Param("pageSize")int pageSize);
 	
 	/*
 	 * 根据功能模块标识插入功能模块信息

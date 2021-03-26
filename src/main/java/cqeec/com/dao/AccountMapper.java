@@ -2,6 +2,8 @@ package cqeec.com.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import cqeec.com.gams.entity.Account;
 
 /*
@@ -13,7 +15,7 @@ public interface AccountMapper {
 	/*
 	 * 统计所有记录数
 	 * */
-	public long cunt();
+	public long count();
 	
 	
 	/*
@@ -33,7 +35,7 @@ public interface AccountMapper {
 	 * 	pageNumber 页码
 	 *  pageSize 每页记录数
 	 * 	 * */
-	public List<Account> findPage(int pageNumber,int pageSize);
+	public List<Account> findPage(@Param("pageNumber")int pageNumber,@Param("pageSize")int pageSize);
 	
 	/*
 	 * 根据账户标识插入账户信息

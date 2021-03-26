@@ -1,6 +1,9 @@
 package cqeec.com.dao;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import cqeec.com.gams.entity.RolePermissions;
 
 /*
@@ -12,7 +15,7 @@ public interface RolePermissionsMapper {
 	/*
 	 * 统计所有记录数
 	 * */
-	public long cunt();
+	public long count();
 	
 	
 	/*
@@ -32,7 +35,7 @@ public interface RolePermissionsMapper {
 	 * 	pageNumber 页码
 	 *  pageSize 每页记录数
 	 * 	 * */
-	public List<RolePermissions> findPage(int pageNumber,int pageSize);
+	public List<RolePermissions> findPage(@Param("pageNumber")int pageNumber,@Param("pageSize")int pageSize);
 	
 	/*
 	 * 根据角色权限标识插入角色权限信息
