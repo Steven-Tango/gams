@@ -31,7 +31,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+	<!-- 依赖 -->
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
@@ -141,4 +141,5 @@
 
 	</dependencies>
 
+	<packaging>war</packaging>
 </project>
