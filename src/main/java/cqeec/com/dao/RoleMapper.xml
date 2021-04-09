@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cqeec.com.dao.RoleMapper">
 	<select id="count" resultType="long">
-		select count(*) form Role
+		select count(*) from Role
 	</select>
 	
 	<select id="findAll" resultType="cqeec.com.gams.entity.Role">
-		select * form Role
+		select * from Role
 	</select>
 	
 	<select id="findById"  resultType="cqeec.com.gams.entity.Role">
