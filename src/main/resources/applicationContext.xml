@@ -44,8 +44,17 @@
 		<property name="filters" value="stat" />
 	</bean>
 	<!-- 整合Spring与Mybatis -->
-
 	<!-- 配置MyBatis会话工厂 -->
-
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 数据源配置 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 实体类型别名 -->
+		<property name="typeAliasesPackage"
+			value="cqeec.com.gams.entity"></property>
+	</bean>
 	<!-- 配置MyBatis的Mapper扫描器 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cqeec.com.dao"></property>
+	</bean>
 </beans>
