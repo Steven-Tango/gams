@@ -21,7 +21,7 @@ public interface BasesService<T> {
 	/*
 	 * 查询角色信息 id：角色标识 角色信息
 	 */
-	public Role findById(String id);
+	public T findById(String id);
 
 	/*
 	 * 不带条件的分页查询 pageNumber 页码 pageSize 每页记录数 *
@@ -31,12 +31,12 @@ public interface BasesService<T> {
 	/*
 	 * 根据角色标识插入角色信息 *
 	 */
-	public void insert(Role entity);
+	public void insert(T entity);
 
 	/*
 	 * 根据角色标识修改角色信息 *
 	 */
-	public void update(Role entity);
+	public void update(T entity);
 
 	/*
 	 * 根据角色标识删除角色信息 *
