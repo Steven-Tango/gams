@@ -1,6 +1,7 @@
 package com.cqeec.gams.test.mapper;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,14 +15,16 @@ import cqeec.com.service.RoleService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
 public class TestRoleService {
+	
 	@Autowired
 	private RoleService roleservice;
+	
 
 	@Test
 	public void testCount() {
 		System.out.println("总的记录数");
 	}
-	
+	@Test
 	public void testFindAll() {
 		List<Role> list = roleservice.findAll();
 		System.out.println("------------");
@@ -29,6 +32,14 @@ public class TestRoleService {
 			System.out.println(r.getId()+"\t"+r.getName());
 		}
 		System.out.println("----------");
+	}
+	
+	@Test
+	public void testinsert() {
+		Role entity = new Role();
+		entity.setId(UUID.randomUUID().toString());
+		entity.setName("as");
+		roleservice.insert(entity);
 	}
 
 }
