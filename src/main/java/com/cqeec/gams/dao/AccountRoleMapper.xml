@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqeec.gams.dao.AccountRoleMapper">
+	<select id="count" resultType="long">
+		select count(*) form AcountRole
+	</select>
+	
+	<select id="findAll" resultType="com.cqeec.gams.entity.AccountRole">
+		select * form AcountRole
+	</select>
+	
+	<select id="findById"  resultType="com.cqeec.gams.entity.AccountRole">
+		select * from AcountRole where id=#{id}
+	</select>
+	
+	<select id="findPage"  resultType="com.cqeec.gams.entity.AccountRole">
+		select  top ${pageSize} * from AcountRole where id not in(select top ${(pageNumber-1)*pageSize}  id from AcountRole )
+	</select>
+	
+	<insert id="insert"  parameterType="com.cqeec.gams.entity.AccountRole">
+		insert into AcountRole(
+	<trim suffixOverrides=",">
+		<if test="id!=null">id,</if>
+		<if test="account!=null">account,</if>
+		<if test="role!=null">role</if>
+	</trim>
+		) values(
+	<trim suffixOverrides=",">
+		<if test="id!=null">#{id},</if>
+		<if test="account!=null">#{account},</if>
+		<if test="role!=null">#{role}</if>
+	</trim>
+	</insert>
+	
+	<update id="update"  parameterType="com.cqeec.gams.entity.AccountRole">
+		update AcountRole 
+	<set>
+		<if test="account!=null">account=#{account},</if>
+		<if test="role!=null">role=#{role}</if>
+	</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="delete">
+		delete from AcountRole where id=#{id}
+	</delete>
+</mapper>

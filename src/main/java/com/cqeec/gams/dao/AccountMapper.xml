@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqeec.gams.dao.AccountMapper">
+	<select id="count" resultType="long">
+		select count(*) form Account
+	</select>
+	
+	<select id="findAll" resultType="com.cqeec.gams.entity.Account">
+		select * form Account
+	</select>
+	
+	<select id="findById"  resultType="com.cqeec.gams.entity.Account">
+		select * from Account where id=#{id}
+	</select>
+	
+	<select id="findPage"  resultType="com.cqeec.gams.entity.Account">
+		select  top ${pageSize} * from Account where id not in(select top ${(pageNumber-1)*pageSize}  id from Account )
+	</select>
+	
+	<insert id="insert"  parameterType="com.cqeec.gams.entity.Account">
+		insert into Account(
+	<trim suffixOverrides=",">
+		<if test="id!=null">id,</if>
+		<if test="name!=null">name,</if>
+		<if test="loginName!=null">loginName,</if>
+		<if test="password!=null">password,</if>
+		<if test="disabled!=null">disabled</if>
+	</trim>
+		) values(
+	<trim suffixOverrides=",">
+		<if test="id!=null">#{id},</if>
+		<if test="name!=null">#{name},</if>
+		<if test="loginName!=null">#{loginName},</if>
+		<if test="password!=null">#{password},</if>
+		<if test="disabled!=null">#{disabled});</if>
+	</trim>
+	</insert>
+	
+	<update id="update"  parameterType="com.cqeec.gams.entity.Account">
+		update Account 
+	<set>
+		<if test="name!=null">name=#{name},</if>
+		<if test="loginName!=null">loginName=#{loginName},</if>
+		<if test="password!=null">password=#{password},</if>
+		<if test="disabled!=null">disabled=#{disabled}</if>
+	</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="delete">
+		delete from Account where id=#{id}
+	</delete>
+</mapper>

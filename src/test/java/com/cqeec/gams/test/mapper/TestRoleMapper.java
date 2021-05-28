@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.cqeec.dao.RoleMapper;
+import com.cqeec.gams.dao.RoleMapper;
 import com.cqeec.gams.entity.Role;
 
 @RunWith(SpringJUnit4ClassRunner.class)
