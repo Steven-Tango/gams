@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqeec.dao.RolePermissionsMapper">
+	<select id="count" resultType="long">
+		select count(*) form RolePermissions
+	</select>
+	
+	<select id="findAll" resultType="com.cqeec.gams.entity.RolePermissions">
+		select * form RolePermissions
+	</select>
+	
+	<select id="findById"  resultType="com.cqeec.gams.entity.RolePermissions">
+		select * from RolePermissions where id=#{id}
+	</select>
+	
+	<select id="findPage"  resultType="com.cqeec.gams.entity.RolePermissions">
+		select  top ${pageSize} * from RolePermissions where id not in(select top ${(pageNumber-1)*pageSize}  id from RolePermissions )
+	</select>
+	
+	<insert id="insert"  parameterType="com.cqeec.gams.entity.RolePermissions">
+		insert into RolePermissions(
+	<trim suffixOverrides=",">
+		<if test="id!=null">id,</if>
+		<if test="role!=null">role,</if>
+		<if test="FunctionalModule!=null">FunctionalModule</if>>
+	</trim>
+		) values(
+	<trim suffixOverrides=",">
+		<if test="id!=null">#{id},</if>
+		<if test="role!=null">#{role},</if>
+		<if test="FunctionalModule!=null">#{FunctionalModule}</if>
+	</trim>
+	</insert>
+	
+	<update id="update"  parameterType="com.cqeec.gams.entity.RolePermissions">
+		update RolePermissions 
+	<set>
+		<if test="role!=null">role=#{role},</if>
+		<if test="FunctionalModule!=null">FunctionalModule=#{FunctionalModule}</if>
+		
+	</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="delete">
+		delete from RolePermissions where id=#{id}
+	</delete>
+</mapper>

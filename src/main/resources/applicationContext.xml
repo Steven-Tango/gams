@@ -5,92 +5,75 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-	http://www.springframework.org/schema/beans/spring-beans.xsd
-	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context.xsd
-	http://www.springframework.org/schema/tx
-	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd 
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<!-- 引入属性文件 -->
 	<context:property-placeholder
 		location="classpath:app.properties" />
-		<!-- 配置組件扫描 -->
-		<context:component-scan base-package="cqeec.com.service">
-			
-		</context:component-scan>
+
+	<!-- 组件扫描 -->
+	<context:component-scan
+		base-package="com.cqeec.gams.service" />
+
 	<!-- 配置数据源(Druid) -->
 	<bean id="dataSource"
-		class="com.alibaba.druid.pool.DruidDataSource">
+		class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+		destroy-method="close">
 		<!-- 基本属性 url、user、password -->
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 
-		<property name="defaultAutoCommit" value="false"></property>
+		<property name="defaultAutoCommit" value="false" />
 
 		<!-- 配置初始化大小、最小、最大 -->
 		<property name="initialSize" value="${druid.initialSize}" />
 		<property name="minIdle" value="${druid.minIdle}" />
 		<property name="maxActive" value="${druid.maxActive}" />
-
 		<!-- 配置获取连接等待超时的时间 -->
 		<property name="maxWait" value="${druid.maxWait}" />
-
-		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
-		<property name="timeBetweenEvictionRunsMillis" value="2000" />
-
-		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-		<property name="minEvictableIdleTimeMillis" value="600000" />
-		<property name="maxEvictableIdleTimeMillis" value="900000" />
-
-		<property name="validationQuery" value="select 1" />
-		<property name="testWhileIdle" value="true" />
-		<property name="testOnBorrow" value="false" />
-		<property name="testOnReturn" value="false" />
-
-		<property name="keepAlive" value="true" />
-		<property name="phyMaxUseCount" value="1000" />
-
-		<!-- 配置监控统计拦截的filters -->
-		<property name="filters" value="stat" />
 	</bean>
-	<!-- 整合Spring与Mybatis -->
+	<!-- 整合Spring与MyBatis -->
 	<!-- 配置MyBatis会话工厂 -->
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<!-- 数据源配置 -->
-		<property name="dataSource" ref="dataSource"></property>
+		<!-- 配置数据源 -->
+		<property name="dataSource" ref="dataSource" />
 		<!-- 实体类型别名 -->
 		<property name="typeAliasesPackage"
-			value="cqeec.com.gams.entity"></property>
+			value="com.cqeec.gams.entity" />
 	</bean>
 	<!-- 配置MyBatis的Mapper扫描器 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="cqeec.com.dao"></property>
+		<property name="basePackage" value="com.cqeec.gams.dao" />
 	</bean>
-	
+
 	<!-- 配置事务 -->
-	<!--配置事务管理-->
+	<!-- 配置事务管理 -->
 	<bean id="transactionManager"
-	 	class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"/>
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<!-- 配置事务通知 -->
-	<tx:advice id="txAdvic" transaction-manager="transactionManager">
+	<tx:advice id="txAdvice">
 		<tx:attributes>
-			<tx:method name="insert*" propagation="REQUIRED"/>
-			<tx:method name="add*" propagation="REQUIRED"/>
-			<tx:method name="save*" propagation="REQUIRED"/>
-			<tx:method name="update*" propagation="REQUIRED"/>
-			<tx:method name="delete*" propagation="REQUIRED"/>
-			<tx:method name="*" read-only="true"/>
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
-	<!-- 配置切面 -->
+	<!-- 事务切面 -->
 	<aop:config>
-		<aop:advisor advice-ref="txAdvisor"
-		 pointcut="execution(* cqeec.com.service..*(..))"/>
-		
+		<aop:advisor advice-ref="txAdvice"
+			pointcut="execution(* com.cqeec.gams.service..*(..))" />
 	</aop:config>
+
 </beans>

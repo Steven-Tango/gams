@@ -19,7 +19,7 @@
 		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
 	</properties>
 
-
+	<!-- 依赖管理 -->
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -31,40 +31,80 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 	<!-- 依赖 -->
 	<dependencies>
-		<!-- MyBatis-Spring -->
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis-spring</artifactId>
-			<version>2.0.6</version>
-		</dependency>
-		<!-- junit -->
+		<!-- JUnit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.13.2</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- JSP -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- JSTL -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Apache Fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<!-- Jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+
+		<!-- MyBatis-Spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>2.0.6</version>
+		</dependency>
+
 		<!-- Druid -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
 			<version>1.2.5</version>
 		</dependency>
-		<!-- MyBatis -->
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis</artifactId>
-			<version>3.5.6</version>
-		</dependency>
-		<!-- Microsoft SQL Server JDBC驱动 -->
-		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>mssql-jdbc</artifactId>
-			<version>9.2.1.jre8</version>
-		</dependency>
-		<!-- SpringMVC -->
+
+		<!-- Spring、SpringMVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
@@ -146,7 +186,22 @@
 			<artifactId>spring-websocket</artifactId>
 		</dependency>
 
+		<!-- MyBatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.6</version>
+		</dependency>
+
+		<!-- Microsoft SQL Server JDBC驱动 -->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>9.2.1.jre8</version>
+		</dependency>
+
 	</dependencies>
+
 
 	<packaging>war</packaging>
 </project>
