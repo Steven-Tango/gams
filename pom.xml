@@ -34,6 +34,15 @@
 
 	<!-- 依赖 -->
 	<dependencies>
+
+		<!-- kaptcha -->
+		<dependency>
+			<groupId>com.github.penggle</groupId>
+			<artifactId>kaptcha</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+
+
 		<!-- JUnit -->
 		<dependency>
 			<groupId>junit</groupId>
