@@ -5,6 +5,7 @@
 	<groupId>com.cqeec</groupId>
 	<artifactId>gams</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>gams</name>
 	<description>通用权限管理系统</description>
 
@@ -35,14 +36,12 @@
 
 	<!-- 依赖 -->
 	<dependencies>
-
-		<!-- kaptcha -->
+		<!-- Kaptcha -->
 		<dependency>
 			<groupId>com.github.penggle</groupId>
 			<artifactId>kaptcha</artifactId>
 			<version>2.3.2</version>
 		</dependency>
-
 
 		<!-- JUnit -->
 		<dependency>
@@ -213,5 +212,4 @@
 	</dependencies>
 
 
-	<packaging>war</packaging>
 </project>
