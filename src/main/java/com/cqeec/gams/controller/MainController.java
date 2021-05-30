@@ -1,0 +1,15 @@
+package com.cqeec.gams.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/app/")
+public class MainController {
+
+	@RequestMapping("/main.html")
+	public String gotoMainPage() {
+		return "main";
+	}
+
+}
