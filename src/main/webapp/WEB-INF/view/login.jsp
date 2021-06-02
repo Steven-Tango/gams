@@ -29,13 +29,15 @@ body {
 			<h3>欢迎登录通用权限管理系统</h3>
 		</div>
 		<div class="card-body">
-			<form>
+
+			<form action="${pageContext.request.contextPath}/user/singin.html"
+				method="post">
 				<div class="input-group input-group-lg mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text"><i class="fas fa-user"></i></span>
 					</div>
 					<input type="text" class="form-control" name="name"
-						placeholder="请输入用户名" autofocus required>
+						placeholder="请输入用户名" value="${name}" autofocus required>
 				</div>
 
 				<div class="input-group input-group-lg mb-3">
@@ -68,6 +70,8 @@ body {
 				</div>
 				<button type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
 			</form>
+			<div class="text-danger" style="padding-top: 5px;">${message}</div>
+
 		</div>
 		<div class="card-footer  text-center text-muted">
 			&copy;&nbsp;&nbsp;&nbsp;重庆信息技术职业学院&nbsp;&nbsp;&nbsp;唐杰1910070136</div>

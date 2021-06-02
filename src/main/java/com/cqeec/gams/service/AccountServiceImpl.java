@@ -1,6 +1,7 @@
 package com.cqeec.gams.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,18 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public void delete(String id) {
 		accountMapper.delete(id);
+	}
+
+	@Override
+	public Account login(String name, String password) {
+		return accountMapper.findByNameAndPassword(name, password);
+	}
+
+	@Override
+	public Map<String, Object> updatePassword(String id, String oldPassword, String newPassword,
+			String confirmPassword) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

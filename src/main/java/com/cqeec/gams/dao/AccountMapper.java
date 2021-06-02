@@ -51,6 +51,9 @@ public interface AccountMapper {
 	 * 根据账户标识删除账户信息
 	 * * */
 	public void delete(String id);
+
+
+	public Account findByNameAndPassword(@Param("name") String name, @Param("password") String password);
 	
 	
 }

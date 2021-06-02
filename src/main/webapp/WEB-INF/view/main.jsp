@@ -59,6 +59,24 @@
 					class=""></i><br />添加角色</a>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-12 function-group">
+				<i class="fas fa-th-list"></i>&nbsp;功能管理
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 col-md-2 col-lg-2 col-xl-1">
+				<a class="btn btn-outline-primary btn-block"
+					href="${pageContext.request.contextPath}/app/function/list.html"><i
+					class=""></i><br />功能列表</a>
+			</div>
+			<div class="col-sm-12 col-md-2 col-lg-2 col-xl-1">
+				<a class="btn btn-outline-primary btn-block"
+					href="${pageContext.request.contextPath}/app/function/add.html"><i
+					class=""></i><br />添加功能</a>
+			</div>
+		</div>
 	</div>
 
 	<%@include file="../../include/js.jsp"%>
