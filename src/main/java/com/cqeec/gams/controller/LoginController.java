@@ -15,6 +15,12 @@ public class LoginController {
 	@Autowired
 	private AccountService accountService;
 	
+	@RequestMapping("/user/exit.html")
+	public String exit(HttpSession session) {
+		session.removeAttribute("account");
+		return "redirect:/login.html";
+	}
+	
 	@RequestMapping("/user/singin.html")
 	public ModelAndView login(String name, String password, String code, HttpSession session) {
 		

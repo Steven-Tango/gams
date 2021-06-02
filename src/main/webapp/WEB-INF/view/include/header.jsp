@@ -18,12 +18,12 @@
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"><i class="fas fa-user"></i> 用户名 </a>
+				aria-expanded="false"><i class="fas fa-user"></i> ${account.name} </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item" href="javascript:;" data-toggle="modal"
 						data-target="#changePsswordModal">修改密码</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">退出系统</a>
+					<a class="dropdown-item" href="${pageContext.request.contextPath}/user/exit.html">退出系统</a>
 				</div></li>
 		</ul>
 	</div>
