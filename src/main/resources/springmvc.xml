@@ -42,6 +42,19 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
+	
+		<!-- 拦截器配置 -->
+	<mvc:interceptors>
+		<!-- 用户是否登录拦截器配置 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/app/**" />
+			<bean class="com.cqeec.gams.interceptor.UserLoginVerification"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/api/**" />
+			<bean class="com.cqeec.gams.interceptor.UserLoginVerification"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<!-- JSP视图解析器 -->
 	<bean
