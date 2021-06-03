@@ -1,5 +1,6 @@
 package com.cqeec.gams.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,8 +58,31 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public Map<String, Object> updatePassword(String id, String oldPassword, String newPassword,
 			String confirmPassword) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (!newPassword.equals(confirmPassword)) {
+			map.put("code", 1);
+			map.put("message", "新密码与确认密码不一致！");
+			return map;
+		}
+		Account account = accountMapper.findById(id);
+		if (!account.getPassword().equals(oldPassword)) {
+			map.put("code", 2);
+			map.put("message", "用户原密码错误！");
+			return map;
+		}
+		account = new Account();
+		account.setId(id);
+		account.setPassword(newPassword);
+		try {
+			accountMapper.update(account);
+			map.put("code", 0);
+			map.put("message", "密码修改成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("code", 3);
+			map.put("message", "密码修改失败！");
+		}
+		return map;
 	}
 
 }

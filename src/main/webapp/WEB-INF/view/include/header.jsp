@@ -86,3 +86,58 @@
 		</div>
 	</div>
 </nav>
+<script>
+	function changePassword() {
+		oldPw = $("#oldPassword").val();
+		if (oldPw == "") {
+			$("#hbOldPassword").text("请输入用户原密码！");
+			$("#oldPassword").focus();
+			return;
+		}
+		$("#hbOldPassword").text("");
+		newPw = $("#newPassword").val();
+		if (newPw == "") {
+			$("#hbNewPassword").text("请输入新密码！");
+			$("#newPassword").focus();
+			return;
+		}
+		$("#hbNewPassword").text("");
+		confirmPw = $("#confirmPassword").val();
+		if (oldPw == "") {
+			$("#hbConfirmPassword").text("请输入用户原密码！");
+			$("#confirmPassword").focus();
+			return;
+		}
+		$("#hbConfirmPassword").text("");
+		if (newPw != confirmPw) {
+			alert("新密码与确认密码不一致，请重新输入！");
+			$("#newPassword").focus();
+			return;
+		}
+		$
+				.ajax({
+					url : "${pageContext.request.contextPath}/api/user/change/password",
+					type : "POST",
+					data : {
+						id : "${sessionScope.account.id}",
+						oldPassword : oldPw,
+						newPassword : newPw,
+						confirmPassword : confirmPw
+					},
+					dataType : "json",
+					success : function(result) {
+						$("#message").text(result.message);
+						if (result.code == 0) {
+							$("#changePsswordModal").modal("hide");
+							$("#oldPassword").val("");
+							$("#newPassword").val("");
+							$("#confirmPassword").val("");
+							$("#message").text("");
+						}
+					},
+					error : function(xhr, msg, ex) {
+						alert("修改密码操作失败！");
+					}
+				});
+	}
+</script>

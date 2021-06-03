@@ -1,0 +1,575 @@
+/*==============================================================*/
+/* DBMS name:      Microsoft SQL Server 2008                    */
+/* Created on:     2021/6/1 14:14:34                            */
+/*==============================================================*/
+
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('AccountRole') and o.name = 'FK_AccountRole_account_R_Account_id')
+alter table AccountRole
+   drop constraint FK_AccountRole_account_R_Account_id
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('AccountRole') and o.name = 'FK_AccountRole_role_R_Role_id')
+alter table AccountRole
+   drop constraint FK_AccountRole_role_R_Role_id
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('RolePermissions') and o.name = 'FK_RolePermissions_functionalModule_R_FunctionalModule_id')
+alter table RolePermissions
+   drop constraint FK_RolePermissions_functionalModule_R_FunctionalModule_id
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('RolePermissions') and o.name = 'FK_RolePermissions_role_R_Role_id')
+alter table RolePermissions
+   drop constraint FK_RolePermissions_role_R_Role_id
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('Account')
+            and   type = 'U')
+   drop table Account
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('AccountRole')
+            and   type = 'U')
+   drop table AccountRole
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('FunctionalModule')
+            and   type = 'U')
+   drop table FunctionalModule
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('Role')
+            and   type = 'U')
+   drop table Role
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('RolePermissions')
+            and   type = 'U')
+   drop table RolePermissions
+go
+
+/*==============================================================*/
+/* Table: Account                                               */
+/*==============================================================*/
+create table Account (
+   id                   char(36)             not null,
+   name                 varchar(255)         null,
+   loginName            varchar(255)         null,
+   password             varchar(255)         null,
+   disabled             tinyint              null default 0,
+   constraint PK_ACCOUNT primary key nonclustered (id)
+)
+go
+
+if exists (select 1 from  sys.extended_properties
+           where major_id = object_id('Account') and minor_id = 0)
+begin 
+   declare @CurrentUser sysname 
+select @CurrentUser = user_name() 
+execute sp_dropextendedproperty 'MS_Description',  
+   'user', @CurrentUser, 'table', 'Account' 
+ 
+end 
+
+
+select @CurrentUser = user_name() 
+execute sp_addextendedproperty 'MS_Description',  
+   '系统用户信息。', 
+   'user', @CurrentUser, 'table', 'Account'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Account')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'id')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'Account', 'column', 'id'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '标识',
+   'user', @CurrentUser, 'table', 'Account', 'column', 'id'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Account')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'name')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'Account', 'column', 'name'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '用户名',
+   'user', @CurrentUser, 'table', 'Account', 'column', 'name'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Account')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'loginName')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'Account', 'column', 'loginName'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '登录名',
+   'user', @CurrentUser, 'table', 'Account', 'column', 'loginName'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Account')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'password')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'Account', 'column', 'password'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '密码',
+   'user', @CurrentUser, 'table', 'Account', 'column', 'password'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Account')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'disabled')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'Account', 'column', 'disabled'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '禁用：0，未禁用；1，禁用。',
+   'user', @CurrentUser, 'table', 'Account', 'column', 'disabled'
+go
+
+/*==============================================================*/
+/* Table: AccountRole                                           */
+/*==============================================================*/
+create table AccountRole (
+   id                   char(36)             not null,
+   account              char(36)             null,
+   role                 char(36)             null,
+   disabled             tinyint              null default 0,
+   constraint PK_ACCOUNTROLE primary key nonclustered (id)
+)
+go
+
+if exists (select 1 from  sys.extended_properties
+           where major_id = object_id('AccountRole') and minor_id = 0)
+begin 
+   declare @CurrentUser sysname 
+select @CurrentUser = user_name() 
+execute sp_dropextendedproperty 'MS_Description',  
+   'user', @CurrentUser, 'table', 'AccountRole' 
+ 
+end 
+
+
+select @CurrentUser = user_name() 
+execute sp_addextendedproperty 'MS_Description',  
+   '账户角色', 
+   'user', @CurrentUser, 'table', 'AccountRole'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('AccountRole')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'id')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'AccountRole', 'column', 'id'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '标识',
+   'user', @CurrentUser, 'table', 'AccountRole', 'column', 'id'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('AccountRole')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'account')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'AccountRole', 'column', 'account'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '账户',
+   'user', @CurrentUser, 'table', 'AccountRole', 'column', 'account'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('AccountRole')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'role')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'AccountRole', 'column', 'role'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '角色',
+   'user', @CurrentUser, 'table', 'AccountRole', 'column', 'role'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('AccountRole')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'disabled')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'AccountRole', 'column', 'disabled'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '禁用：0，未禁用；1，禁用。',
+   'user', @CurrentUser, 'table', 'AccountRole', 'column', 'disabled'
+go
+
+/*==============================================================*/
+/* Table: FunctionalModule                                      */
+/*==============================================================*/
+create table FunctionalModule (
+   id                   char(36)             not null,
+   type                 char(1)              null,
+   parent               char(36)             null,
+   name                 varchar(255)         null,
+   code                 varchar(255)         null,
+   constraint PK_FUNCTIONALMODULE primary key nonclustered (id)
+)
+go
+
+if exists (select 1 from  sys.extended_properties
+           where major_id = object_id('FunctionalModule') and minor_id = 0)
+begin 
+   declare @CurrentUser sysname 
+select @CurrentUser = user_name() 
+execute sp_dropextendedproperty 'MS_Description',  
+   'user', @CurrentUser, 'table', 'FunctionalModule' 
+ 
+end 
+
+
+select @CurrentUser = user_name() 
+execute sp_addextendedproperty 'MS_Description',  
+   '系统功能菜单信息。', 
+   'user', @CurrentUser, 'table', 'FunctionalModule'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('FunctionalModule')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'id')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'FunctionalModule', 'column', 'id'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '标识',
+   'user', @CurrentUser, 'table', 'FunctionalModule', 'column', 'id'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('FunctionalModule')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'type')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'FunctionalModule', 'column', 'type'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '功能类型：1，功能组；2，功能模块。',
+   'user', @CurrentUser, 'table', 'FunctionalModule', 'column', 'type'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('FunctionalModule')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'parent')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'FunctionalModule', 'column', 'parent'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '功能模块所属的功能组。',
+   'user', @CurrentUser, 'table', 'FunctionalModule', 'column', 'parent'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('FunctionalModule')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'name')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'FunctionalModule', 'column', 'name'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '功能模块名',
+   'user', @CurrentUser, 'table', 'FunctionalModule', 'column', 'name'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('FunctionalModule')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'code')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'FunctionalModule', 'column', 'code'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '功能模块代码(URL地址)',
+   'user', @CurrentUser, 'table', 'FunctionalModule', 'column', 'code'
+go
+
+/*==============================================================*/
+/* Table: Role                                                  */
+/*==============================================================*/
+create table Role (
+   id                   char(36)             not null,
+   name                 varchar(255)         not null,
+   constraint PK_ROLE primary key nonclustered (id)
+)
+go
+
+if exists (select 1 from  sys.extended_properties
+           where major_id = object_id('Role') and minor_id = 0)
+begin 
+   declare @CurrentUser sysname 
+select @CurrentUser = user_name() 
+execute sp_dropextendedproperty 'MS_Description',  
+   'user', @CurrentUser, 'table', 'Role' 
+ 
+end 
+
+
+select @CurrentUser = user_name() 
+execute sp_addextendedproperty 'MS_Description',  
+   '角色信息', 
+   'user', @CurrentUser, 'table', 'Role'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Role')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'id')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'Role', 'column', 'id'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '标识',
+   'user', @CurrentUser, 'table', 'Role', 'column', 'id'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Role')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'name')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'Role', 'column', 'name'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '角色名称',
+   'user', @CurrentUser, 'table', 'Role', 'column', 'name'
+go
+
+/*==============================================================*/
+/* Table: RolePermissions                                       */
+/*==============================================================*/
+create table RolePermissions (
+   id                   char(36)             not null,
+   role                 char(36)             null,
+   functionalModule     char(36)             null,
+   constraint PK_ROLEPERMISSIONS primary key nonclustered (id)
+)
+go
+
+if exists (select 1 from  sys.extended_properties
+           where major_id = object_id('RolePermissions') and minor_id = 0)
+begin 
+   declare @CurrentUser sysname 
+select @CurrentUser = user_name() 
+execute sp_dropextendedproperty 'MS_Description',  
+   'user', @CurrentUser, 'table', 'RolePermissions' 
+ 
+end 
+
+
+select @CurrentUser = user_name() 
+execute sp_addextendedproperty 'MS_Description',  
+   '角色权限', 
+   'user', @CurrentUser, 'table', 'RolePermissions'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('RolePermissions')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'id')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'RolePermissions', 'column', 'id'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '标识',
+   'user', @CurrentUser, 'table', 'RolePermissions', 'column', 'id'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('RolePermissions')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'role')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'RolePermissions', 'column', 'role'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '角色',
+   'user', @CurrentUser, 'table', 'RolePermissions', 'column', 'role'
+go
+
+alter table AccountRole
+   add constraint FK_AccountRole_account_R_Account_id foreign key (account)
+      references Account (id)
+go
+
+alter table AccountRole
+   add constraint FK_AccountRole_role_R_Role_id foreign key (role)
+      references Role (id)
+go
+
+alter table RolePermissions
+   add constraint FK_RolePermissions_functionalModule_R_FunctionalModule_id foreign key (functionalModule)
+      references FunctionalModule (id)
+go
+
+alter table RolePermissions
+   add constraint FK_RolePermissions_role_R_Role_id foreign key (role)
+      references Role (id)
+go
+
