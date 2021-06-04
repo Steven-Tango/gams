@@ -22,7 +22,7 @@ public class UserRestController {
 	public List<Account> getAll() {
 		return accountService.findAll();
 	}
-	
+
 	@PostMapping("/change/password")
 	public Map<String, Object> changePassword(String id, String oldPassword, String newPassword,
 			String confirmPassword) {

@@ -12,6 +12,7 @@ public interface BasesService<T> {
 	 * 统计所有记录数
 	 */
 	public long count();
+
 	/*
 	 * 查询所有角色信息
 	 */
@@ -25,7 +26,7 @@ public interface BasesService<T> {
 	/*
 	 * 不带条件的分页查询 pageNumber 页码 pageSize 每页记录数 *
 	 */
-	public List<T> findPage( int pageNumber, int pageSize);
+	public List<T> findPage(int pageNumber, int pageSize);
 
 	/*
 	 * 根据角色标识插入角色信息 *

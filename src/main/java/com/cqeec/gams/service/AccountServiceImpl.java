@@ -12,9 +12,10 @@ import com.cqeec.gams.entity.Account;
 import com.cqeec.gams.entity.Role;
 
 @Service
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private AccountMapper accountMapper;
+
 	@Override
 	public long count() {
 		return accountMapper.count();

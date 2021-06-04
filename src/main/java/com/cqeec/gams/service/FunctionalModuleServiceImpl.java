@@ -1,4 +1,5 @@
 package com.cqeec.gams.service;
+
 /*
  * 功能模块服务
  * */
@@ -49,6 +50,5 @@ public class FunctionalModuleServiceImpl implements FunctionalModuleService {
 	public void delete(String id) {
 		functionalModuleMapper.delete(id);
 	}
-
 
 }

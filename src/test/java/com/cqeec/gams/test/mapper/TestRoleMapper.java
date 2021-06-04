@@ -19,14 +19,14 @@ public class TestRoleMapper {
 
 	@Test
 	public void testCount() {
-		System.out.println("总的记录数"+roleMapper.count());
+		System.out.println("总的记录数" + roleMapper.count());
 	}
-	
+
 	public void testFindAll() {
 		List<Role> list = roleMapper.findAll();
 		System.out.println("------------");
-		for(Role r:list) {
-			System.out.println(r.getId()+"\t"+r.getName());
+		for (Role r : list) {
+			System.out.println(r.getId() + "\t" + r.getName());
 		}
 		System.out.println("----------");
 	}

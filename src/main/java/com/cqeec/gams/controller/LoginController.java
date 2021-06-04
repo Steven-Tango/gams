@@ -14,19 +14,18 @@ import com.cqeec.gams.service.AccountService;
 public class LoginController {
 	@Autowired
 	private AccountService accountService;
-	
+
 	@RequestMapping("/user/exit.html")
 	public String exit(HttpSession session) {
 		session.removeAttribute("account");
 		return "redirect:/login.html";
 	}
-	
+
 	@RequestMapping("/user/singin.html")
 	public ModelAndView login(String name, String password, String code, HttpSession session) {
-		
+
 		ModelAndView mav = new ModelAndView();
-		
-		
+
 		// 验证验证码
 		Object obj = session.getAttribute("KAPTCHA_SESSION_KEY");
 		if (obj == null) {
@@ -58,7 +57,7 @@ public class LoginController {
 		mav.setViewName("redirect:/app/main.html");
 		return mav;
 	}
-	
+
 	@RequestMapping({ "/", "login.html" })
 	public String gotoLoginPage() {
 		return "login";

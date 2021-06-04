@@ -9,9 +9,10 @@ import com.cqeec.gams.dao.RoleMapper;
 import com.cqeec.gams.entity.Role;
 
 @Service
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private RoleMapper rolemapper;
+
 	@Override
 	public long count() {
 		return rolemapper.count();

@@ -15,25 +15,25 @@ import com.cqeec.gams.service.RoleService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
 public class TestRoleService {
-	
+
 	@Autowired
 	private RoleService roleservice;
-	
 
 	@Test
 	public void testCount() {
 		System.out.println("总的记录数");
 	}
+
 	@Test
 	public void testFindAll() {
 		List<Role> list = roleservice.findAll();
 		System.out.println("------------");
-		for(Role r:list) {
-			System.out.println(r.getId()+"\t"+r.getName());
+		for (Role r : list) {
+			System.out.println(r.getId() + "\t" + r.getName());
 		}
 		System.out.println("----------");
 	}
-	
+
 	@Test
 	public void testinsert() {
 		Role entity = new Role();
