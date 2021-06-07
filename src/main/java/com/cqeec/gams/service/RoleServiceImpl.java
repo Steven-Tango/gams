@@ -48,4 +48,14 @@ public class RoleServiceImpl implements RoleService {
 		rolemapper.delete(id);
 	}
 
+	@Override
+	public List<Role> findByConditionPage(int pageNumber, int pageSize, Role role) {
+		return rolemapper.findByConditionPage(pageNumber, pageSize, role);
+	}
+
+	@Override
+	public long count(Role role) {
+		return rolemapper.countByCondition(role);
+	}
+
 }

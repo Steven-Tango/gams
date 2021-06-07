@@ -46,4 +46,9 @@ public interface RoleMapper {
 	 */
 	public void delete(String id);
 
+	public List<Role> findByConditionPage(@Param("pageNumber") int pageNumber, @Param("pageSize") int pageSize,
+			@Param("role")Role role);
+
+	public long countByCondition(Role role);
+
 }
