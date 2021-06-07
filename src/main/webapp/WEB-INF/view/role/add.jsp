@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,36 +33,11 @@
 			<div class="col-md-12">
 				<form action="${pageContext.request.contextPath}/app/role/save.html"
 					method="post">
-					<input type="hidden" name="id" value="">
-					<div class="form-group row">
-						<label for="code" class="col-sm-2 col-md-2 col-form-label">角色编码</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="code" name="code"
-								value="${role.code}" required autofocus>
-						</div>
-					</div>
 					<div class="form-group row">
 						<label for="name" class="col-sm-2 col-md-2 col-form-label">角色名称</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="name" name="name"
 								value="" required>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label for="mnemonic" class="col-sm-2 col-md-2 col-form-label">助记码</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="mnemonic"
-								name="mnemonic" value="" required>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label for="disabled" class="col-sm-2 col-md-2 col-form-label"></label>
-						<div class="col-sm-10">
-							<div class="custom-control custom-checkbox mr-sm-2">
-								<input type="checkbox" class="custom-control-input"
-									id="disabled" name="disabled">
-								<label class="custom-control-label" for="disabled">禁用</label>
-							</div>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -71,9 +47,7 @@
 					</div>
 					<div class="form-group row">
 						<label for="disabled" class="col-sm-2 col-md-2 col-form-label">角色权限</label>
-						<div class="col-sm-10">
-							
-						</div>
+						<div class="col-sm-10"></div>
 					</div>
 					<div class="form-gorup row">
 						<div class="col-sm-6">
@@ -84,15 +58,23 @@
 						</div>
 						<div class="col-sm-2">
 							<a class="btn btn-secondary btn-block"
-								href="${pageContext.request.contextPath}/app/role/list.html">返回</a>
+								href="${pageContext.request.contextPath}/app/role/list.html?page=${page}&size=${size}">返回</a>
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12">
+			<div id="msg" class="col-md-12 lead text-danger">
 				<!-- 操作消息 -->
+				${message}
+				<c:if test="${message!=null}">
+				<script>
+					setTimeout(function() {
+						$("#msg").text("");
+					}, 3000);
+				</script>
+			</c:if>
 			</div>
 		</div>
 	</div>
