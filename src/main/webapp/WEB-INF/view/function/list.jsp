@@ -9,6 +9,8 @@
 <%@include file="../../../include/css.jsp"%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/lib/bootstrap-table/1.18.3/bootstrap-table.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/lib/jquery-treegrid/0.3.0/css/jquery.treegrid.css">
 <style type="text/css">
 .row {
 	margin-bottom: 10px;
@@ -32,65 +34,23 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<table id="table"></table>
+				<a class="btn btn-primary"
+					href="${pageContext.request.contextPath}/app/function/group/add.html"
+					title="添加功能组"> <i class="fas fa-plus"></i>&nbsp;添加功能组
+				</a> <a class="btn btn-primary"
+					href="${pageContext.request.contextPath}/app/function/module/add.html"
+					title="添加功能模块"> <i class="fas fa-plus"></i>&nbsp;添加功能模块
+				</a> <a class="btn btn-success" href="" title="刷新"> <i
+					class="fas fa-sync-alt"></i>&nbsp;刷新
+				</a> <a class="btn btn-secondary float-right"
+					href="${pageContext.request.contextPath}/app/main.html" title="返回">
+					<i class="fas fa-reply"></i>&nbsp;返回
+				</a>
 			</div>
 		</div>
-	</div>
-
-	<div class="modal fade" id="addRoleModal" data-backdrop="static"
-		tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
-		aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">添加功能</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form id="addForm">
-						<div class="form-group row">
-							<label for="code"
-								class="col-sm-2 col-md-2 col-form-label text-danger">功能编码</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="code" name="code"
-									required autofocus>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="name"
-								class="col-sm-2 col-md-2 col-form-label text-danger">功能名称</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="roleName"
-									name="name" required>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="mnemonic" class="col-sm-2 col-md-2 col-form-label">助记码</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="mnemonic"
-									name="mnemonic" required>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="disabled" class="col-sm-2 col-md-2 col-form-label"></label>
-							<div class="col-sm-10">
-								<div class="custom-control custom-checkbox mr-sm-2">
-									<input type="checkbox" class="custom-control-input"
-										id="disabled" name="disabled"> <label
-										class="custom-control-label" for="disabled">禁用</label>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" onclick="save()">保存</button>
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">取消</button>
-				</div>
+		<div class="row">
+			<div class="col-md-12">
+				<table id="table"></table>
 			</div>
 		</div>
 	</div>
@@ -100,26 +60,65 @@
 		src="${pageContext.request.contextPath}/lib/bootstrap-table/1.18.3/bootstrap-table.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/lib/bootstrap-table/1.18.3/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/lib/jquery-treegrid/0.3.0/js/jquery.treegrid.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/lib/bootstrap-table/1.18.3/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
 	<script type="text/javascript">
-		$('#table').bootstrapTable({
-			url : "${pageContext.request.contextPath}/api/user/list/all",
-			pagination : true,
-			columns : [ {
-				field : 'id',
-				title : '#'
-			}, {
-				field : 'name',
-				title : '姓名'
-			}, {
-				field : 'loginName',
-				title : '登录名'
-			}, {
-				field : 'disabled',
-				title : '禁用'
-			}, {
-				field : 'id',
-				title : '操作'
-			} ]
-		});
+		var table = $('#table');
+		table
+				.bootstrapTable({
+					url : "${pageContext.request.contextPath}/api/function/list/all",
+					columns : [
+							{
+								field : 'name',
+								title : '功能名称'
+							},
+							{
+								field : 'type',
+								title : '类型',
+								formatter : function(value, row, index, field) {
+									if (value == 1) {
+										return "功能组";
+									} else {
+										return "功能模块";
+									}
+								}
+							},
+							{
+								field : 'code',
+								title : '代码'
+							},
+							{
+								field : 'id',
+								title : '操作',
+								align : 'center',
+								formatter : function(value, row, index, field) {
+									if (row.type == 1) {
+										code = "${pageContext.request.contextPath}/app/function/group/edit.html?id="
+												+ value;
+									} else {
+										code = "${pageContext.request.contextPath}/app/function/module/edit.html?id="
+												+ value;
+									}
+									return '<a class="btn btn-info btn-sm" href="'+code+'" title="编辑"> <i class="fas fa-edit"></i> </a>&nbsp;&nbsp;<a class="btn btn-danger btn-sm" href="" title="删除"><i class="fas fa-trash-alt"></i> </a>'
+								}
+							} ],
+					treeShowField : 'name',
+					parentIdField : 'parent',
+					onPostBody : function() {
+						var columns = table.bootstrapTable('getOptions').columns
+
+						if (columns && columns[0][1].visible) {
+							table.treegrid({
+								treeColumn : 0,
+								onChange : function() {
+									table.bootstrapTable('resetView')
+								}
+							})
+						}
+					}
+				});
 	</script>
 </body>
+</html>
