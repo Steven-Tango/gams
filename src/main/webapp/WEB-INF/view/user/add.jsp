@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,14 +33,6 @@
 			<div class="col-md-12">
 				<form action="${pageContext.request.contextPath}/app/user/save.html"
 					method="post">
-					<input type="hidden" name="id" value="">
-					<div class="form-group row">
-						<label for="code" class="col-sm-2 col-md-2 col-form-label">用户编码</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="code" name="code"
-								value="" required autofocus>
-						</div>
-					</div>
 					<div class="form-group row">
 						<label for="name" class="col-sm-2 col-md-2 col-form-label">用户名称</label>
 						<div class="col-sm-10">
@@ -48,10 +41,17 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label for="mnemonic" class="col-sm-2 col-md-2 col-form-label">助记码</label>
+						<label for="loginName" class="col-sm-2 col-md-2 col-form-label">登录名</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="mnemonic"
-								name="mnemonic" value="" required>
+							<input type="text" class="form-control" id="loginName"
+								name="loginName" value="" required>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="password" class="col-sm-2 col-md-2 col-form-label">密码</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" id="password"
+								name="password" value="" required>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -59,8 +59,8 @@
 						<div class="col-sm-10">
 							<div class="custom-control custom-checkbox mr-sm-2">
 								<input type="checkbox" class="custom-control-input"
-									id="disabled" name="disabled">
-								<label class="custom-control-label" for="disabled">禁用</label>
+									id="disabled" name="disabled"> <label
+									class="custom-control-label" for="disabled">禁用</label>
 							</div>
 						</div>
 					</div>
@@ -71,9 +71,7 @@
 					</div>
 					<div class="form-group row">
 						<label for="disabled" class="col-sm-2 col-md-2 col-form-label">用户权限</label>
-						<div class="col-sm-10">
-							
-						</div>
+						<div class="col-sm-10"></div>
 					</div>
 					<div class="form-gorup row">
 						<div class="col-sm-6">
@@ -91,8 +89,16 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12">
+			<div id="msg" class="col-md-12 lead text-danger">
 				<!-- 操作消息 -->
+				${message}
+				<c:if test="${message!=null}">
+					<script>
+						setTimeout(function() {
+							$("#msg").text("");
+						}, 3000);
+					</script>
+				</c:if>
 			</div>
 		</div>
 	</div>

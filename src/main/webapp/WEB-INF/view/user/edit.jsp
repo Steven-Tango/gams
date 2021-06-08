@@ -33,26 +33,26 @@
 			<div class="col-md-12">
 				<form action="${pageContext.request.contextPath}/app/user/save.html"
 					method="post">
-					<input type="hidden" name="id" value="">
-					<div class="form-group row">
-						<label for="code" class="col-sm-2 col-md-2 col-form-label">用户编码</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="code" name="code"
-								value="" required autofocus>
-						</div>
-					</div>
+					<input type="hidden" name="id" value="${obj.id}">
 					<div class="form-group row">
 						<label for="name" class="col-sm-2 col-md-2 col-form-label">用户名称</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="name" name="name"
-								value="" required>
+								value="${obj.name}" required>
 						</div>
 					</div>
 					<div class="form-group row">
-						<label for="mnemonic" class="col-sm-2 col-md-2 col-form-label">助记码</label>
+						<label for="loginName" class="col-sm-2 col-md-2 col-form-label">登录名</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="mnemonic"
-								name="mnemonic" value="" required>
+							<input type="text" class="form-control" id="loginName"
+								name="loginName" value="${obj.loginName}" required>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="password" class="col-sm-2 col-md-2 col-form-label">密码</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" id="password"
+								name="password" value="${obj.password}" required>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -85,7 +85,7 @@
 						</div>
 						<div class="col-sm-2">
 							<a class="btn btn-secondary btn-block"
-								href="${pageContext.request.contextPath}/app/main.html">返回</a>
+								href="${pageContext.request.contextPath}/app/user/list.html">返回</a>
 						</div>
 					</div>
 				</form>
