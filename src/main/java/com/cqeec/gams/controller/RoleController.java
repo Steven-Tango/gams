@@ -92,24 +92,25 @@ public class RoleController {
 			role.setName("%" + name + "%");
 			total = roleService.count(role);
 		}
-
 		int pages = (int) (total % pageSize == 0 ? total / pageSize : total / pageSize + 1);
-		if (pageNumber > pages) {
-			pageNumber = pages;
-		}
-
-		List<Role> list;
-		if (name == null || "".equals(name)) {
-			// 没有条件查询
-			list = roleService.findPage(pageNumber, pageSize);
+		if (total == 0) {
+			pageNumber = 0;
 		} else {
-			// 条件查询
-			list = roleService.findByConditionPage(pageNumber, pageSize, role);
+			if (pageNumber > pages) {
+				pageNumber = pages;
+			}
+			List<Role> list;
+			if (name == null || "".equals(name)) {
+				// 没有条件查询
+				list = roleService.findPage(pageNumber, pageSize);
+			} else {
+				// 条件查询
+				list = roleService.findByConditionPage(pageNumber, pageSize, role);
+			}
+			mav.addObject("list", list);
 		}
-
-		mav.addObject("list", list);
-		mav.addObject("total", total);
 		mav.addObject("pages", pages);
+		mav.addObject("total", total);
 		mav.addObject("page", pageNumber);
 		mav.addObject("size", pageSize);
 		mav.addObject("name", name);

@@ -75,19 +75,26 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list}" var="obj" varStatus="vs">
+						<c:if test="${total==0}">
 							<tr>
-								<th scope="row">${(page-1)*size+vs.count}</th>
-								<td>${obj.name}</td>
-								<td><a class="btn btn-info btn-sm"
-									href="${pageContext.request.contextPath}/app/role/edit.html?id=${obj.id}"
-									title="编辑"> <i class="fas fa-edit"></i>
-								</a>&nbsp;&nbsp;<a class="btn btn-danger btn-sm"
-									href="javascript:del('${obj.id}')" title="删除"> <i
-										class="fas fa-trash-alt"></i>
-								</a></td>
+								<td class="text-center" colspan="3">没有查找到相应记录</td>
 							</tr>
-						</c:forEach>
+						</c:if>
+						<c:if test="${total!=0}">
+							<c:forEach items="${list}" var="obj" varStatus="vs">
+								<tr>
+									<th scope="row">${(page-1)*size+vs.count}</th>
+									<td>${obj.name}</td>
+									<td><a class="btn btn-info btn-sm"
+										href="${pageContext.request.contextPath}/app/role/edit.html?id=${obj.id}"
+										title="编辑"> <i class="fas fa-edit"></i>
+									</a>&nbsp;&nbsp;<a class="btn btn-danger btn-sm"
+										href="javascript:del('${obj.id}')" title="删除"> <i
+											class="fas fa-trash-alt"></i>
+									</a></td>
+								</tr>
+							</c:forEach>
+						</c:if>
 					</tbody>
 				</table>
 			</div>
