@@ -26,7 +26,7 @@
 				href="${pageContext.request.contextPath}/app/main.html"><i
 					class="fas fa-home"></i>主页</a></li>
 			<li class="breadcrumb-item"><a
-				href="${pageContext.request.contextPath}/app/user/list.html">功能管理</a></li>
+				href="${pageContext.request.contextPath}/app/function/list.html">功能管理</a></li>
 			<li class="breadcrumb-item active" aria-current="page">功能列表</li>
 		</ol>
 	</nav>

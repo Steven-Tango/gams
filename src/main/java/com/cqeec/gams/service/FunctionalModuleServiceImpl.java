@@ -51,4 +51,9 @@ public class FunctionalModuleServiceImpl implements FunctionalModuleService {
 		functionalModuleMapper.delete(id);
 	}
 
+	@Override
+	public List<FunctionalModule> getAllFunctionGroup() {
+		return functionalModuleMapper.findFuncitonGroup();
+	}
+
 }

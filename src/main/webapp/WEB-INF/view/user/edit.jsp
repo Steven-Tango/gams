@@ -31,7 +31,8 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<form action="${pageContext.request.contextPath}/app/user/save.html"
+				<form
+					action="${pageContext.request.contextPath}/app/user/update.html"
 					method="post">
 					<input type="hidden" name="id" value="${obj.id}">
 					<div class="form-group row">
@@ -60,8 +61,8 @@
 						<div class="col-sm-10">
 							<div class="custom-control custom-checkbox mr-sm-2">
 								<input type="checkbox" class="custom-control-input"
-									id="disabled" name="disabled"> <label
-									class="custom-control-label" for="disabled">禁用</label>
+									id="disabled" name="disabled" ${obj.disabled?"checked":""}>
+								<label class="custom-control-label" for="disabled">禁用</label>
 							</div>
 						</div>
 					</div>
@@ -92,9 +93,13 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12">
-				<p id="message" class=''></p>
-				<!-- 操作消息 -->
+			<div id="msg" class="col-md-12 text-danger lead">
+				${message}
+				<script>
+					setTimeout(function() {
+						$("#msg").text("");
+					}, 3000);
+				</script>
 			</div>
 		</div>
 	</div>

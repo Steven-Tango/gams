@@ -35,7 +35,7 @@
 				<form class="form-inline" id="condationForm" action="" method="post">
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" id="name" name="name"
-							placeholder="请输入用户名称">
+							placeholder="请输入用户名或登录名">
 						<div class="input-group-append">
 							<button type="submit" class="btn btn-primary">
 								<i class="fas fa-search"></i>&nbsp;查询
@@ -76,12 +76,26 @@
 		$('#table')
 				.bootstrapTable(
 						{
-							url : "${pageContext.request.contextPath}/api/user/list/all",
+							url : "${pageContext.request.contextPath}/api/user/list",
+							pageList : [ 2, 10, 50, 100 ],
+							smartDisplay : false,
+							pageSize : 2,
+							queryParamsType : '',
+							sidePagination : 'server',
 							pagination : true,
 							columns : [
 									{
 										field : 'id',
-										title : '#'
+										title : '#',
+										formatter : function(value, row, index,
+												field) {
+											return ($('#table').bootstrapTable(
+													'getOptions').pageNumber - 1)
+													* $('#table')
+															.bootstrapTable(
+																	'getOptions').pageSize
+													+ index + 1;
+										}
 									},
 									{
 										field : 'name',
@@ -93,7 +107,11 @@
 									},
 									{
 										field : 'disabled',
-										title : '禁用'
+										title : '禁用',
+										formatter : function(value, row, index,
+												field) {
+											return value?"禁用":"未禁用";
+										}
 									},
 									{
 										field : 'id',

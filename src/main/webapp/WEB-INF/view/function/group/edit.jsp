@@ -22,7 +22,7 @@
 				href="${pageContext.request.contextPath}/app/main.html"><i
 					class="fas fa-home"></i>主页</a></li>
 			<li class="breadcrumb-item"><a
-				href="${pageContext.request.contextPath}/app/role/list.html">功能管理</a></li>
+				href="${pageContext.request.contextPath}/app/function/list.html">功能管理</a></li>
 			<li class="breadcrumb-item active" aria-current="page">编辑功能组</li>
 		</ol>
 	</nav>
@@ -30,14 +30,14 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<form action="${pageContext.request.contextPath}/"
+				<form action="${pageContext.request.contextPath}/app/function/group/update.html"
 					method="post">
-					<input type="hidden" name="id" value="">
+					<input type="hidden" name="id" value="${fm.id}">
 					<div class="form-group row">
 						<label for="name" class="col-sm-2 col-md-2 col-form-label">功能组名称</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="name" name="name"
-								value="" required>
+								value="${fm.name}" required>
 						</div>
 					</div>
 					
@@ -57,8 +57,13 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12">
-				<!-- 操作消息 -->
+			<div id="msg" class="col-md-12 text-danger lead">
+				${message}
+				<script>
+					setTimeout(function() {
+						$("#msg").text("");
+					}, 3000);
+				</script>
 			</div>
 		</div>
 	</div>

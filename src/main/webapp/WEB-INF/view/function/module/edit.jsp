@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@
 				href="${pageContext.request.contextPath}/app/main.html"><i
 					class="fas fa-home"></i>主页</a></li>
 			<li class="breadcrumb-item"><a
-				href="${pageContext.request.contextPath}/app/role/list.html">功能管理</a></li>
+				href="${pageContext.request.contextPath}/app/function/list.html">功能管理</a></li>
 			<li class="breadcrumb-item active" aria-current="page">编辑功能模块</li>
 		</ol>
 	</nav>
@@ -30,17 +31,18 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<form action="${pageContext.request.contextPath}/" method="post">
-					<input type="hidden" name="id" value="">
+				<form
+					action="${pageContext.request.contextPath}/app/function/module/update.html"
+					method="post">
+					<input type="hidden" name="id" value="${fm.id}">
 					<div class="form-group row">
 						<label for="name" class="col-sm-2 col-md-2 col-form-label">所属功能组</label>
 						<div class="col-sm-10">
 							<select class="form-control" id="parent" name="parent">
-								<option value="0">请选择功能组</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
+								<option value="">请选择功能组...</option>
+								<c:forEach items="${functionGroups}" var="fg">
+									<option value="${fg.id}" ${fm.parent==fg.id?"selected":""}>${fg.name}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -49,7 +51,7 @@
 						<label for="name" class="col-sm-2 col-md-2 col-form-label">功能模块名称</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="name" name="name"
-								value="" required>
+								value="${fm.name}" required>
 						</div>
 					</div>
 
@@ -57,7 +59,7 @@
 						<label for="name" class="col-sm-2 col-md-2 col-form-label">功能模块代码</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="code" name="code"
-								value="" required>
+								value="${fm.code}" required>
 						</div>
 					</div>
 
@@ -77,8 +79,13 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12">
-				<!-- 操作消息 -->
+			<div id="msg" class="col-md-12 text-danger lead">
+				${message}
+				<script>
+					setTimeout(function() {
+						$("#msg").text("");
+					}, 3000);
+				</script>
 			</div>
 		</div>
 	</div>

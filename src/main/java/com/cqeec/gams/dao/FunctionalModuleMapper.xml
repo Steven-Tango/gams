@@ -2,51 +2,67 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqeec.gams.dao.FunctionalModuleMapper">
 	<select id="count" resultType="long">
-		select count(*) form FunctionalModule
+		select count(*) from
+		FunctionalModule
 	</select>
-	
-	<select id="findAll" resultType="com.cqeec.gams.entity.FunctionalModule">
-		select * form FunctionalModule
+
+	<select id="findAll"
+		resultType="com.cqeec.gams.entity.FunctionalModule">
+		select * from FunctionalModule
 	</select>
-	
-	<select id="findById"  resultType="com.cqeec.gams.entity.FunctionalModule">
-		select * from FunctionalModule where id=#{id}
+
+	<select id="findById"
+		resultType="com.cqeec.gams.entity.FunctionalModule">
+		select * from FunctionalModule where
+		id=#{id}
 	</select>
-	
-	<select id="findPage"  resultType="com.cqeec.gams.entity.FunctionalModule">
-		select  top ${pageSize} * from FunctionalModule where id not in(select top ${(pageNumber-1)*pageSize}  id from FunctionalModule )
+
+	<select id="findPage"
+		resultType="com.cqeec.gams.entity.FunctionalModule">
+		select top ${pageSize} * from
+		FunctionalModule where id not
+		in(select top ${(pageNumber-1)*pageSize} id from
+		FunctionalModule)
 	</select>
-	
-	<insert id="insert"  parameterType="com.cqeec.gams.entity.FunctionalModule">
+
+	<select id="findFuncitonGroup"
+		resultType="com.cqeec.gams.entity.FunctionalModule">
+		select id,name from FunctionalModule where type='1'
+	</select>
+
+	<insert id="insert"
+		parameterType="com.cqeec.gams.entity.FunctionalModule">
 		insert into FunctionalModule(
-	<trim suffixOverrides=",">
-		<if test="id!=null">id,</if>
-		<if test="type!=null">type,</if>
-		<if test="parent!=null">parent,</if>
-		<if test="name!=null">name,</if>
-		<if test="code!=null">code</if>
-	</trim>
+		<trim suffixOverrides=",">
+			<if test="id!=null">id,</if>
+			<if test="type!=null">type,</if>
+			<if test="parent!=null">parent,</if>
+			<if test="name!=null">name,</if>
+			<if test="code!=null">code,</if>
+		</trim>
 		) values(
-	<trim suffixOverrides=",">
-		<if test="id!=null">#{id},</if>
-		<if test="type!=null">#{type},</if>
-		<if test="parent!=null">#{parent},</if>
-		<if test="name!=null">#{name},</if>
-		<if test="code!=null">#{code});</if>
-	</trim>
+		<trim suffixOverrides=",">
+			<if test="id!=null">#{id},</if>
+			<if test="type!=null">#{type},</if>
+			<if test="parent!=null">#{parent},</if>
+			<if test="name!=null">#{name},</if>
+			<if test="code!=null">#{code},</if>
+		</trim>
+		)
 	</insert>
-	
-	<update id="update"  parameterType="com.cqeec.gams.entity.FunctionalModule">
-		update FunctionalModule 
-	<set>
-		<if test="type!=null">type=#{type},</if>
-		<if test="parent!=null">parent=#{parent},</if>
-		<if test="name!=null">name=#{name},</if>
-		<if test="code!=null">code=#{code}</if>
-	</set>
+
+	<update id="update"
+		parameterType="com.cqeec.gams.entity.FunctionalModule">
+		update FunctionalModule
+		<set>
+			<if test="type!=null">type=#{type},</if>
+			<if test="parent!=null">parent=#{parent},</if>
+			<if test="name!=null">name=#{name},</if>
+			<if test="code!=null">code=#{code},</if>
+		</set>
 		where id=#{id}
 	</update>
-	
+
 	<delete id="delete">
 		delete from FunctionalModule where id=#{id}
 	</delete>

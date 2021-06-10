@@ -46,4 +46,6 @@ public interface FunctionalModuleMapper {
 	 */
 	public void delete(String id);
 
+	public List<FunctionalModule> findFuncitonGroup();
+
 }

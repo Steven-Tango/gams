@@ -10,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cqeec.gams.entity.Account;
-import com.cqeec.gams.entity.Role;
 import com.cqeec.gams.service.AccountService;
 
 @Controller
@@ -18,6 +17,23 @@ import com.cqeec.gams.service.AccountService;
 public class UserController {
 	@Autowired
 	private AccountService accountService;
+
+	@RequestMapping("/update.html")
+	public ModelAndView update(Account account) {
+		ModelAndView mav = new ModelAndView("user/edit");
+		Boolean disabled = account.getDisabled();
+		if (disabled == null) {
+			account.setDisabled(false);
+		}
+		try {
+			accountService.update(account);
+			mav.addObject("message", "保存数据成功！");
+		} catch (Exception e) {
+			mav.addObject("message", "保存数据失败！");
+		}
+		mav.addObject("obj", account);
+		return mav;
+	}
 
 	@RequestMapping("/delete.html")
 	public ModelAndView delete(String id) {
